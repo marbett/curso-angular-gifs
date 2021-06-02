@@ -14,10 +14,15 @@ export class SearchComponent {
 
   }
 
-  search () : void {
+  search () : void {    
     const query = this.txtBuscar.nativeElement.value;
-    this.gifsService.buscarGifs(query);
-    this.txtBuscar.nativeElement.value = "";
+
+    if (query.trim().length > 0) {
+      this.gifsService.searchGifs(query);
+      this.txtBuscar.nativeElement.value = "";
+    }
+
+    
   }
 
 }
