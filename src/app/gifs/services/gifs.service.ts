@@ -10,6 +10,7 @@ export class GifsService {
   private _history: string [] = [];
   private _apiKey: string = 'fGN7RRKQBvzVIUTSR0KGAG07HKeKIau5';
   private _limit: number = 10;
+  public results: any[] = [];
 
   get history () {
       return [...this._history];
@@ -34,6 +35,7 @@ export class GifsService {
     .subscribe(
       (resp: any) => {
         console.log(resp.data);
+        this.results = resp.data;
       }
     );
   }
