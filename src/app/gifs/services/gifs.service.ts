@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SearchGifsResponse, Gif } from '../interfaces/gifs.interface';
 
 //provide in root me evita tener que importar en los providers, lo eleva al nivel del root
 @Injectable({
@@ -10,7 +11,7 @@ export class GifsService {
   private _history: string [] = [];
   private _apiKey: string = 'fGN7RRKQBvzVIUTSR0KGAG07HKeKIau5';
   private _limit: number = 10;
-  public results: any[] = [];
+  public results: Gif[] = [];
 
   get history () {
       return [...this._history];
@@ -31,9 +32,9 @@ export class GifsService {
     console.log(this._history);
     
     //esta peticion es observable
-    this.httpClient.get(`https://api.giphy.com/v1/gifs/search?api_key=${this._apiKey}&q=${query}&limit=${this._limit}`)
+    this.httpClient.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=${this._apiKey}&q=${query}&limit=${this._limit}`)
     .subscribe(
-      (resp: any) => {
+      (resp: SearchGifsResponse) => {
         console.log(resp.data);
         this.results = resp.data;
       }
